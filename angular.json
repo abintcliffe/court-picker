@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "badminton-club-sorter": {
+    "court-picker": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,15 +20,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/badminton-club-sorter",
+            "outputPath": "dist/court-picker",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
@@ -75,18 +72,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "badminton-club-sorter:build"
+            "browserTarget": "court-picker:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "badminton-club-sorter:build:production"
+              "browserTarget": "court-picker:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "badminton-club-sorter:build"
+            "browserTarget": "court-picker:build"
           }
         },
         "test": {
@@ -96,10 +93,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
@@ -115,25 +109,23 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "badminton-club-sorter:serve"
+            "devServerTarget": "court-picker:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "badminton-club-sorter:serve:production"
+              "devServerTarget": "court-picker:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "badminton-club-sorter"
+  "defaultProject": "court-picker"
 }
