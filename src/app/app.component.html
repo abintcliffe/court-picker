@@ -1,0 +1,97 @@
+<div class="main">
+  <div class="column" id="available-members-column">
+    <div class="container">
+      <div class="header">
+        <h2>Available Members</h2>
+      </div>
+
+      <div
+        id="all"
+        cdkDropList
+        [cdkDropListData]="availableMembers"
+        [cdkDropListConnectedTo]="[
+          'courtOne',
+          'courtTwo',
+          'courtThree',
+          'courtFour'
+        ]"
+        class="list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-box [boxItems]="availableMembers"></app-box>
+      </div>
+    </div>
+  </div>
+
+  <div class="column" id="available-court-column">
+    <div class="container">
+      <div class="header">
+        <h2>Court 1</h2>
+        <button mat-button (click)="reset(1)">Reset</button>
+      </div>
+
+      <div
+        id="courtOne"
+        cdkDropList
+        [cdkDropListData]="courtOne"
+        cdkDropListConnectedTo="all"
+        class="list court"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-box [boxItems]="courtOne"></app-box>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="header">
+        <h2>Court 2</h2>
+        <button mat-button (click)="reset(2)">Reset</button>
+      </div>
+
+      <div
+        id="courtTwo"
+        cdkDropList
+        [cdkDropListData]="courtTwo"
+        cdkDropListConnectedTo="all"
+        class="list court"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-box [boxItems]="courtTwo"></app-box>
+      </div>
+    </div>
+    <div class="container">
+      <div class="header">
+        <h2>Court 3</h2>
+        <button mat-button (click)="reset(3)">Reset</button>
+      </div>
+
+      <div
+        id="courtThree"
+        cdkDropList
+        [cdkDropListData]="courtThree"
+        cdkDropListConnectedTo="all"
+        class="list court"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-box [boxItems]="courtThree"></app-box>
+      </div>
+    </div>
+    <div class="container">
+      <div class="header">
+        <h2>Court 4</h2>
+        <button mat-button (click)="reset(4)">Reset</button>
+      </div>
+
+      <div
+        id="courtFour"
+        cdkDropList
+        [cdkDropListData]="courtFour"
+        cdkDropListConnectedTo="all"
+        class="list court"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-box [boxItems]="courtFour"></app-box>
+      </div>
+    </div>
+  </div>
+</div>
