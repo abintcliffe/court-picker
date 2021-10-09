@@ -64,17 +64,17 @@ export class MemberManagmentDialogComponent implements OnInit {
         this.rowData = JSON.parse(localStorage.members);
     }
 
-    onGridReady(params: any) {
+    onGridReady(params: any): void {
         console.log(params);
         this.gridApi = params.api;
     }
 
-    updateMembers() {
+    updateMembers(): void {
         localStorage.members = JSON.stringify(this.rowData);
         this.updateMemberEvent.emit('');
     }
 
-    handelEvent(event: any) {
+    handelEvent(event: any): void {
         if (event.column.colId === 'delete') {
             this.rowData.splice(event.rowIndex, 1);
 

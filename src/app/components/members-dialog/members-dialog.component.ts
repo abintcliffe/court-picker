@@ -22,7 +22,7 @@ export class MembersDialogComponent implements OnInit {
         });
     }
 
-    addMember() {
+    addMember(): void {
         if (this.memberForm.valid) {
             this.addMemberEvent.emit(this.memberForm.value);
             this.memberForm.patchValue({

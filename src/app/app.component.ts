@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     courtFour: Member[] = [];
     title = 'badminton-club-sorter';
 
-    ngOnInit() {
+    ngOnInit(): void {
         if (localStorage.getItem('members')) {
             this.unavailableMembers = JSON.parse(localStorage.members);
         } else {
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         setTimeout(() => {
             if (!this.sidenav?.opened) {
                 this.sidenav?.open();
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     constructor(public dialog: MatDialog) {}
 
-    drop(event: CdkDragDrop<Member[]>) {
+    drop(event: CdkDragDrop<Member[]>): void {
         if (
             event.container.id === 'all' ||
             event.container.id === 'unavailableMembers'
@@ -67,7 +67,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
     }
 
-    handleEvent(event: CdkDragDrop<Member[]>) {
+    handleEvent(event: CdkDragDrop<Member[]>): void {
         if (event.dropPoint.x < 50) {
             transferArrayItem(
                 this.availableMembers,
@@ -91,7 +91,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
     }
 
-    reset(courtList: number) {
+    reset(courtList: number): void {
         switch (courtList) {
             case 1:
                 while (this.courtOne.length > 0) {
@@ -136,7 +136,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
     }
 
-    openMemberDialog() {
+    openMemberDialog(): void {
         const dialogRef = this.dialog.open(MembersDialogComponent);
 
         dialogRef.componentInstance.addMemberEvent.subscribe(
@@ -147,7 +147,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         );
     }
 
-    openMemberManagementDialog() {
+    openMemberManagementDialog(): void {
         const dialogRef = this.dialog.open(MemberManagmentDialogComponent);
 
         dialogRef.componentInstance.updateMemberEvent.subscribe(() => {
@@ -160,7 +160,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         });
     }
 
-    saveAllMembers() {
+    saveAllMembers(): void {
         const allMembers: Member[] = [];
 
         this.unavailableMembers.forEach((member: Member) => {
@@ -190,7 +190,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         localStorage.members = JSON.stringify(allMembers);
     }
 
-    toggleSidenav() {
+    toggleSidenav(): void {
         if (!this.sidenav?.opened) {
             this.sidenav?.toggle();
         }
