@@ -53,7 +53,6 @@ p {
 
 .box {
     padding: 20px 10px;
-    border-bottom: solid 1px #ccc;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -65,6 +64,9 @@ p {
     color: #000;
     font-weight: 500;
     font-size: 20px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
 
     &--red {
         background: rgb(255, 0, 0, 0.6);
@@ -80,6 +82,14 @@ p {
 
     &--yellow {
         background: rgb(253, 216, 53, 0.6);
+    }
+
+    &__label {
+        background-color: #fff;
+        border: solid 1px #000;
+        text-align: center;
+        padding: 5px 0;
+        width: 90%;
     }
 }
 
