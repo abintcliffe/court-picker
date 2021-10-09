@@ -1,105 +1,126 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem,
-  CdkDrag,
+    CdkDragDrop,
+    moveItemInArray,
+    transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { members } from './utils/members';
-import { Level, Member } from './utils/member.interface';
+import { Member } from './utils/member.interface';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  availableMembers: Member[] = members;
-  courtOne: Member[] = [];
-  courtTwo: Member[] = [];
-  courtThree: Member[] = [];
-  courtFour: Member[] = [];
-  title = 'badminton-club-sorter';
+export class AppComponent implements OnInit {
+    @ViewChild('drawer') sidenav: MatDrawer | undefined;
 
-  drop(event: CdkDragDrop<Member[]>) {
-    if (event.item.dropContainer.id === 'all') {
-      if (event.container.data.length !== 4) {
-        this.handleEvent(event);
-      }
-    } else {
-      this.handleEvent(event);
+    unavailableMembers: Member[] = [];
+    availableMembers: Member[] = members;
+    courtOne: Member[] = [];
+    courtTwo: Member[] = [];
+    courtThree: Member[] = [];
+    courtFour: Member[] = [];
+    title = 'badminton-club-sorter';
+
+    ngOnInit() {
+        this.sidenav?.toggle();
     }
-  }
 
-  /** Predicate function that only allows even numbers to be dropped into a list. */
-  evenPredicate(item: CdkDrag<number>) {
-    return item.data % 2 === 0;
-  }
+    constructor(private cd: ChangeDetectorRef) {}
 
-  /** Predicate function that doesn't allow items to be dropped into a list. */
-  noReturnPredicate() {
-    return false;
-  }
-
-  handleEvent(event: CdkDragDrop<Member[]>) {
-    if (event.previousContainer !== event.container) {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    } else {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+    drop(event: CdkDragDrop<Member[]>) {
+        if (
+            event.container.id === 'all' ||
+            event.container.id === 'unavailableMembers'
+        ) {
+            this.handleEvent(event);
+        } else {
+            if (event.container.data.length !== 4) {
+                this.handleEvent(event);
+            } else {
+                moveItemInArray(
+                    event.container.data,
+                    event.previousIndex,
+                    event.currentIndex,
+                );
+            }
+        }
     }
-  }
 
-  reset(courtList: number) {
-    switch (courtList) {
-      case 1:
-        while (this.courtOne.length > 0) {
-          transferArrayItem(
-            this.courtOne,
-            this.availableMembers,
-            0,
-            this.availableMembers.length
-          );
+    handleEvent(event: CdkDragDrop<Member[]>) {
+        if (event.dropPoint.x < 50) {
+            transferArrayItem(
+                this.availableMembers,
+                this.unavailableMembers,
+                event.previousIndex,
+                this.unavailableMembers.length,
+            );
+        } else if (event.previousContainer !== event.container) {
+            transferArrayItem(
+                event.previousContainer.data,
+                event.container.data,
+                event.previousIndex,
+                event.currentIndex,
+            );
+        } else {
+            moveItemInArray(
+                event.container.data,
+                event.previousIndex,
+                event.currentIndex,
+            );
         }
-        break;
-      case 2:
-        while (this.courtTwo.length > 0) {
-          transferArrayItem(
-            this.courtTwo,
-            this.availableMembers,
-            0,
-            this.availableMembers.length
-          );
-        }
-        break;
-      case 3:
-        while (this.courtThree.length > 0) {
-          transferArrayItem(
-            this.courtThree,
-            this.availableMembers,
-            0,
-            this.availableMembers.length
-          );
-        }
-        break;
-      case 4:
-        while (this.courtFour.length > 0) {
-          transferArrayItem(
-            this.courtFour,
-            this.availableMembers,
-            0,
-            this.availableMembers.length
-          );
-        }
-        break;
     }
-  }
+
+    reset(courtList: number) {
+        switch (courtList) {
+            case 1:
+                while (this.courtOne.length > 0) {
+                    transferArrayItem(
+                        this.courtOne,
+                        this.availableMembers,
+                        0,
+                        this.availableMembers.length,
+                    );
+                }
+                break;
+            case 2:
+                while (this.courtTwo.length > 0) {
+                    transferArrayItem(
+                        this.courtTwo,
+                        this.availableMembers,
+                        0,
+                        this.availableMembers.length,
+                    );
+                }
+                break;
+            case 3:
+                while (this.courtThree.length > 0) {
+                    transferArrayItem(
+                        this.courtThree,
+                        this.availableMembers,
+                        0,
+                        this.availableMembers.length,
+                    );
+                }
+                break;
+            case 4:
+                while (this.courtFour.length > 0) {
+                    transferArrayItem(
+                        this.courtFour,
+                        this.availableMembers,
+                        0,
+                        this.availableMembers.length,
+                    );
+                }
+                break;
+        }
+    }
+
+    toggleSidenav() {
+        if (!this.sidenav?.opened) {
+            this.sidenav?.toggle();
+        }
+    }
 }

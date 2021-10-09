@@ -1,15 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { CdkDragMove } from '@angular/cdk/drag-drop';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Member } from 'src/app/utils/member.interface';
 
 @Component({
-  selector: 'app-box',
-  templateUrl: './box.component.html',
-  styleUrls: ['./box.component.scss'],
+    selector: 'app-box',
+    templateUrl: './box.component.html',
+    styleUrls: ['./box.component.scss'],
 })
 export class BoxComponent implements OnInit {
-  @Input() boxItems: Member[] = [];
+    @Input() boxItems: Member[] = [];
+    @Output() openSidenav = new EventEmitter();
 
-  constructor() {}
+    constructor() {}
 
-  ngOnInit(): void {}
+    ngOnInit(): void {}
+
+    dragMoved(event: CdkDragMove) {
+        // console.log(event);
+        if (event.pointerPosition.x < 30) {
+            console.log(event);
+            this.openSidenav.emit(true);
+        }
+    }
 }

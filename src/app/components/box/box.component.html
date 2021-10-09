@@ -1,8 +1,9 @@
 <div
-  class="box box--{{ member.level }}"
-  *ngFor="let member of boxItems"
-  [cdkDragData]="member"
-  cdkDrag
+    class="box box--{{ member.level }}"
+    *ngFor="let member of boxItems"
+    [cdkDragData]="member"
+    (cdkDragMoved)="dragMoved($event)"
+    cdkDrag
 >
-  {{ member.name }}
+    {{ member.name }}
 </div>
