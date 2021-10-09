@@ -4,7 +4,12 @@
             <div class="container">
                 <div class="header">
                     <h2>Available Members</h2>
-                    <button mat-button (click)="drawer.toggle()">
+                    <button
+                        mat-stroked-button
+                        color="primary"
+                        class="header__button--option"
+                        (click)="drawer.toggle()"
+                    >
                         Add Members
                     </button>
                 </div>
@@ -35,7 +40,14 @@
             <div class="container court__container">
                 <div class="header">
                     <h2>Court 1</h2>
-                    <button mat-button (click)="reset(1)">Reset</button>
+                    <button
+                        mat-stroked-button
+                        color="primary"
+                        class="header__button--option"
+                        (click)="reset(1)"
+                    >
+                        Reset
+                    </button>
                 </div>
 
                 <div
@@ -53,7 +65,14 @@
             <div class="container court__container">
                 <div class="header">
                     <h2>Court 2</h2>
-                    <button mat-button (click)="reset(2)">Reset</button>
+                    <button
+                        mat-stroked-button
+                        color="primary"
+                        class="header__button--option"
+                        (click)="reset(2)"
+                    >
+                        Reset
+                    </button>
                 </div>
 
                 <div
@@ -70,7 +89,14 @@
             <div class="container court__container">
                 <div class="header">
                     <h2>Court 3</h2>
-                    <button mat-button (click)="reset(3)">Reset</button>
+                    <button
+                        mat-stroked-button
+                        color="primary"
+                        class="header__button--option"
+                        (click)="reset(3)"
+                    >
+                        Reset
+                    </button>
                 </div>
 
                 <div
@@ -87,7 +113,14 @@
             <div class="container court__container">
                 <div class="header">
                     <h2>Court 4</h2>
-                    <button mat-button (click)="reset(4)">Reset</button>
+                    <button
+                        mat-stroked-button
+                        color="primary"
+                        class="header__button--option"
+                        (click)="reset(4)"
+                    >
+                        Reset
+                    </button>
                 </div>
 
                 <div
@@ -104,29 +137,34 @@
         </div>
     </div>
 
-    <!-- <div *ngIf="drawer.opened">
-        <div class="container">
-            <div class="header">
-                <h2>Unavailable Members</h2>
-            </div>
-
-            <div
-                id="unavailableMembers"
-                cdkDropList
-                [cdkDropListData]="unavailableMembers"
-                [cdkDropListConnectedTo]="['all']"
-                class="list"
-                (cdkDropListDropped)="drop($event)"
-            >
-                <app-box [boxItems]="unavailableMembers"></app-box>
-            </div>
-        </div>
-    </div> -->
-
     <mat-drawer #drawer class="sidenav" mode="side">
         <div class="container">
-            <div class="header">
-                <h2>Unavailable Members</h2>
+            <div class="header header__sidenav">
+                <h2>Members</h2>
+                <button
+                    mat-mini-fab
+                    color="primary"
+                    aria-label="Add Member"
+                    (click)="openMemberDialog()"
+                >
+                    <mat-icon>person_add</mat-icon>
+                </button>
+                <button
+                    mat-mini-fab
+                    color="primary"
+                    aria-label="Add Member"
+                    (click)="openMemberManagementDialog()"
+                >
+                    <mat-icon>manage_accounts</mat-icon>
+                </button>
+                <button
+                    mat-stroked-button
+                    color="primary"
+                    class="header__button--option"
+                    (click)="drawer.toggle()"
+                >
+                    Close
+                </button>
             </div>
 
             <div

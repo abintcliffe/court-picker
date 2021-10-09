@@ -3,8 +3,11 @@ import {
     moveItemInArray,
     transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
+import { MemberManagmentDialogComponent } from './components/member-managment-dialog/member-managment-dialog.component';
+import { MembersDialogComponent } from './components/members-dialog/members-dialog.component';
 import { Member } from './utils/member.interface';
 import { members } from './utils/members';
 
@@ -13,11 +16,11 @@ import { members } from './utils/members';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
     @ViewChild('drawer') sidenav: MatDrawer | undefined;
 
     unavailableMembers: Member[] = [];
-    availableMembers: Member[] = members;
+    availableMembers: Member[] = [];
     courtOne: Member[] = [];
     courtTwo: Member[] = [];
     courtThree: Member[] = [];
@@ -25,10 +28,23 @@ export class AppComponent implements OnInit {
     title = 'badminton-club-sorter';
 
     ngOnInit() {
-        this.sidenav?.toggle();
+        if (localStorage.getItem('members')) {
+            this.unavailableMembers = JSON.parse(localStorage.members);
+        } else {
+            this.unavailableMembers = members;
+            localStorage.members = JSON.stringify(this.unavailableMembers);
+        }
     }
 
-    constructor() {}
+    ngAfterViewInit() {
+        setTimeout(() => {
+            if (!this.sidenav?.opened) {
+                this.sidenav?.open();
+            }
+        }, 500);
+    }
+
+    constructor(public dialog: MatDialog) {}
 
     drop(event: CdkDragDrop<Member[]>) {
         if (
@@ -40,11 +56,13 @@ export class AppComponent implements OnInit {
             if (event.container.data.length !== 4) {
                 this.handleEvent(event);
             } else {
-                moveItemInArray(
-                    event.container.data,
-                    event.previousIndex,
-                    event.currentIndex,
-                );
+                if (event.previousContainer === event.container) {
+                    moveItemInArray(
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex,
+                    );
+                }
             }
         }
     }
@@ -116,6 +134,60 @@ export class AppComponent implements OnInit {
                 }
                 break;
         }
+    }
+
+    openMemberDialog() {
+        const dialogRef = this.dialog.open(MembersDialogComponent);
+
+        dialogRef.componentInstance.addMemberEvent.subscribe(
+            (result: Member) => {
+                this.unavailableMembers.unshift(result);
+                this.saveAllMembers();
+            },
+        );
+    }
+
+    openMemberManagementDialog() {
+        const dialogRef = this.dialog.open(MemberManagmentDialogComponent);
+
+        dialogRef.componentInstance.updateMemberEvent.subscribe(() => {
+            this.unavailableMembers = JSON.parse(localStorage.members);
+            this.availableMembers = [];
+            this.courtOne = [];
+            this.courtTwo = [];
+            this.courtThree = [];
+            this.courtFour = [];
+        });
+    }
+
+    saveAllMembers() {
+        const allMembers: Member[] = [];
+
+        this.unavailableMembers.forEach((member: Member) => {
+            allMembers.push(member);
+        });
+
+        this.availableMembers.forEach((member: Member) => {
+            allMembers.push(member);
+        });
+
+        this.courtOne.forEach((member: Member) => {
+            allMembers.push(member);
+        });
+
+        this.courtTwo.forEach((member: Member) => {
+            allMembers.push(member);
+        });
+
+        this.courtThree.forEach((member: Member) => {
+            allMembers.push(member);
+        });
+
+        this.courtFour.forEach((member: Member) => {
+            allMembers.push(member);
+        });
+
+        localStorage.members = JSON.stringify(allMembers);
     }
 
     toggleSidenav() {
