@@ -16,9 +16,7 @@ export class BoxComponent implements OnInit {
     ngOnInit(): void {}
 
     dragMoved(event: CdkDragMove) {
-        // console.log(event);
         if (event.pointerPosition.x < 30) {
-            console.log(event);
             this.openSidenav.emit(true);
         }
     }

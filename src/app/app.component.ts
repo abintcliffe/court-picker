@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import {
     CdkDragDrop,
     moveItemInArray,
     transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { members } from './utils/members';
-import { Member } from './utils/member.interface';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
+import { Member } from './utils/member.interface';
+import { members } from './utils/members';
 
 @Component({
     selector: 'app-root',
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
         this.sidenav?.toggle();
     }
 
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor() {}
 
     drop(event: CdkDragDrop<Member[]>) {
         if (
